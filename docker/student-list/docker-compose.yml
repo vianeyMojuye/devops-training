@@ -1,0 +1,26 @@
+services:
+  website:
+    image: php:apache
+    environment:
+      USERNAME: toto
+      PASSWORD: python
+    volumes:
+      - ./website:/var/www/html
+    depends_on:
+      - API
+    ports:
+      - "80:80"
+    networks:
+      - website_network
+
+  API:
+    image: simple_api
+    ports:
+      - "5000:5000"
+    networks:
+      - website_network
+
+networks:
+  website_network:
+    name: website_network
+    driver: bridge
